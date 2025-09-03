@@ -61,10 +61,6 @@ def logout_view(request):
         return redirect('login')
     return render(request,'login.html')
 
-
-
-
-
 @login_required
 def add_post(request):
     categories = Category.objects.all()  
@@ -93,8 +89,7 @@ def add_post(request):
         return redirect('home') 
 
     return render(request, 'add_post.html', {'categories': categories})
-
-
+@login_required
 def update_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     categories = Category.objects.all()
@@ -111,24 +106,12 @@ def update_post(request, post_id):
         return redirect("home")
     return render(request, "update.html", {"post": post, "categories": categories})
 
-
-
-
-
 from django import template
 register = template.Library()
 
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
-
-
-
-
-
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
 
 @login_required
 def delete_post(request, post_id):
@@ -143,7 +126,6 @@ def delete_post(request, post_id):
         return redirect("home")
 
     return render(request, "delete_post.html", {"post": post})
-
 
 def profile_view(request):
     if request.user.is_authenticated:
@@ -163,17 +145,6 @@ def profile_view(request):
             "cover_url": cover_url
         })
     return redirect("login")
-
-
-
-
-
-
-
-
-
-
-
 
 @login_required
 def edit_profile(request):
@@ -200,9 +171,6 @@ def edit_profile(request):
         'profile': profile
     }
     return render(request, 'edit_profile.html', context)
-
-
-
 
 for user in User.objects.all():
     if not hasattr(user, 'profile'):
