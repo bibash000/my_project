@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white shadow-md rounded-lg w-full max-w-2xl p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center">Add New Post</h2>
+
+        {% if error %}
+            <div class="bg-red-100 text-red-700 p-3 mb-4 rounded">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Title -->
+            <label class="block mb-2 font-semibold">Title</label>
+            <input type="text" name="title" class="w-full p-2 border border-gray-300 rounded mb-4" required>
+
+            <!-- Excerpt -->
+            <label class="block mb-2 font-semibold">Excerpt</label>
+            <textarea name="excerpt" rows="2" class="w-full p-2 border border-gray-300 rounded mb-4"></textarea>
+
+            <!-- Content -->
+            <label class="block mb-2 font-semibold">Content</label>
+            <textarea name="content" rows="5" class="w-full p-2 border border-gray-300 rounded mb-4" required></textarea>
+
+            <!-- Image URL -->
+            <label class="block mb-2 font-semibold">Image</label>
+            <input type="file" name="image" class="w-full p-2 border border-gray-300 rounded mb-4">
+
+            <!-- Category -->
+            <label class="block mb-2 font-semibold">Category</label>
+            <select name="category" class="w-full p-2 border border-gray-300 rounded mb-4">
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}">{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Author -->
+            <label class="block mb-2 font-semibold">Author (optional)</label>
+            <input type="text" name="author" class="w-full p-2 border border-gray-300 rounded mb-4">
+
+            <!-- Author Avatar -->
+            <label class="block mb-2 font-semibold">Author Avatar</label>
+            <input type="file" name="author_avatar" class="w-full p-2 border border-gray-300 rounded mb-4">
+
+            <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition">
+                Add Post
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>
