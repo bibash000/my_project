@@ -17,5 +17,8 @@ urlpatterns = [
 
 
 urlpatterns=[
-    path('api/posts/', post_get, name='post_get')
+    path('api/posts/', post_get, name='post_get'),
+    path('api/comments/', comments_api, name='comments_api'),
+    path('api/categories/', categories_api, name='categories_api'),
+    path('api/profiles/', profiles_api, name='profiles_api'),
 ]
